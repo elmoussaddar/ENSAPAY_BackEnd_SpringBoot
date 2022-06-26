@@ -28,28 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-   // @Autowired
-    //AppUserDetailsService appUserDetailsService;
 
-
-    //@Bean
-   // public BCryptPasswordEncoder passwordEncoder() {
-       // return new BCryptPasswordEncoder();
-    //}
-
-
-    //@Override
-   // public void configure(WebSecurity web) throws Exception {
-        /*web.ignoring()
-                .antMatchers("/client/list")
-                .antMatchers("/client/recherche/{mc}");*/
-
-   // }
-
-    /*@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder());
-    }*/
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -81,13 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-   /* @Bean
-    AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
-        return provider;
-    }*/
+
    @Override
    protected void configure(HttpSecurity http) throws Exception {
        http.cors().and().csrf().disable()
@@ -108,37 +81,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                );
    }
 
-   /* @Override
-    protected void configure(HttpSecurity http) throws Exception {
-       http.authorizeRequests()
-               .anyRequest()
-               .permitAll()
-
-               .and()
-               .httpBasic();
-
-
-         http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-        http.cors();
-
-        http.csrf().disable()
-
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and()
-                .authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
-
-                http.authorizeRequests()
-
-
-                .anyRequest()
-
-                .authenticated()
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilterBefore(new JWTAuthorizationFilter(),
-                        UsernamePasswordAuthenticationFilter.class);
-    }*/
 
 }
